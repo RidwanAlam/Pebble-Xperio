@@ -11,18 +11,28 @@ VibePattern pattern = {
 };
 
 void vibes_action(int vibes_key){
-  light_enable_interaction();
-  delay_time(2);
+  light_enable(true);
+  delay_time(10);
   switch (vibes_key){
     case 0: 
       text_layer_set_text(s_opt_layer, "Option # 1");
-      vibes_long_pulse(); break;
+      vibes_short_pulse(); break;
+      //vibes_long_pulse(); break;
     case 1:
       text_layer_set_text(s_opt_layer, "Option # 2");
-      vibes_short_pulse(); break;
+      segments[0] = 400;
+      segments[1] = 200;
+      segments[2] = 700;
+      vibes_enqueue_custom_pattern(pattern); break;
+      //vibes_short_pulse(); break;
     case 2:
       text_layer_set_text(s_opt_layer, "Option # 3");
-      vibes_double_pulse(); break;
+      segments[0] = 200;
+      segments[1] = 100;
+      segments[2] = 400;
+      vibes_enqueue_custom_pattern(pattern); break;
+      //vibes_double_pulse(); break;
+    /*
     case 3:
       text_layer_set_text(s_opt_layer, "Option # 4");
       segments[0] = 200;
@@ -53,10 +63,13 @@ void vibes_action(int vibes_key){
       segments[1] = 500;
       segments[2] = 500;
       vibes_enqueue_custom_pattern(pattern); break;
+    */
     default:
       text_layer_set_text(s_opt_layer, "Option # 0");
       vibes_long_pulse(); break;
   }
+  delay_time(10);
+  light_enable(false);
   //APP_LOG(APP_LOG_LEVEL_INFO, "%lu", *(pattern.durations));
   //APP_LOG(APP_LOG_LEVEL_INFO, "%lu", *(pattern.durations+1));
   //APP_LOG(APP_LOG_LEVEL_INFO, "%lu", *(pattern.durations+2));
@@ -64,17 +77,21 @@ void vibes_action(int vibes_key){
 }
 
 void font_action(int font_key){
-  light_enable_interaction();
+  light_enable(true);
   switch (font_key){
     case 0: 
       text_layer_set_text(s_opt_layer, "Option # 1");
-      text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14)); break;
+      text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD)); break;
+      //text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14)); break;
     case 1:
-     text_layer_set_text(s_opt_layer, "Option # 2");
-     text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD)); break;
+      text_layer_set_text(s_opt_layer, "Option # 2");
+      text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD)); break;
+      //text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD)); break;
     case 2:
       text_layer_set_text(s_opt_layer, "Option # 3");
-      text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18)); break;
+      text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD)); break;
+      //text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18)); break;
+    /*
     case 3:
       text_layer_set_text(s_opt_layer, "Option # 4");
       text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD)); break;
@@ -90,10 +107,13 @@ void font_action(int font_key){
     case 7:
       text_layer_set_text(s_opt_layer, "Option # 8");
       text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD)); break;
+    */
     default:
       text_layer_set_text(s_opt_layer, "Option # 0");
-      text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14)); break;
+      text_layer_set_font(s_msg_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24)); break;
   }
+  delay_time(10);
+  light_enable(false);
   return;
 }
 
@@ -113,15 +133,16 @@ void update_scene(uint8_t click_id, char* context) {
     }
   }
   else if (strcmp(context, "FONT")==0){
+    int font_option_count = 3;
     if (click_id==11){
       if (font_key_local==0){
-        font_key_local = 8;
+        font_key_local = font_option_count;
       }
-      font_key_local = (font_key_local - 1) % 8;
+      font_key_local = (font_key_local - 1) % font_option_count;
       font_action(font_key_local);
     }
     else if (click_id==12){
-      font_key_local = (font_key_local + 1) % 8;
+      font_key_local = (font_key_local + 1) % font_option_count;
       font_action(font_key_local);
     }
     else if (click_id==14){
@@ -129,15 +150,16 @@ void update_scene(uint8_t click_id, char* context) {
     }
   }
   else if (strcmp(context, "VIBE")==0){
+    int vibe_option_count = 3;
     if (click_id==11){
       if (vibes_key_local==0){
-        vibes_key_local = 8;
+        vibes_key_local = vibe_option_count;
       }
-      vibes_key_local = (vibes_key_local - 1) % 8;
+      vibes_key_local = (vibes_key_local - 1) % vibe_option_count;
       vibes_action(vibes_key_local);
     }
     else if (click_id==12){
-      vibes_key_local = (vibes_key_local + 1) % 8;
+      vibes_key_local = (vibes_key_local + 1) % vibe_option_count;
       vibes_action(vibes_key_local);
     }
     else if (click_id==14){

@@ -55,7 +55,7 @@ void font_window_load(Window *window) {
   // Create TextLayer for Message
   s_msg_layer = text_layer_create(MSG_POSITIONS);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_msg_layer));
-  text_layer_set_text(s_msg_layer, "A QUICK BROWN FOX JUMPS OVER THE LAZY DOG,\na quick brown fox jumps over the lazy dog.");
+  text_layer_set_text(s_msg_layer, "A Quick Brown FOX Jumps Over The Lazy DOG."); //"A QUICK BROWN FOX JUMPS OVER THE LAZY DOG,\na quick brown fox jumps over the lazy dog."
   text_layer_set_background_color(s_msg_layer, GColorWhite);
   text_layer_set_text_color(s_msg_layer, GColorBlack);
   text_layer_set_text_alignment(s_msg_layer, GTextAlignmentLeft);
