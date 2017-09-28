@@ -1,0 +1,28 @@
+{
+    "author": "ridwan.alam.bd@gmail.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "xperio",
+    "pebble": {
+        "displayName": "xperio",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery"
+        ],
+        "uuid": "2f3dc1d9-f717-4ab9-ac1b-f56620eefc0c",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
